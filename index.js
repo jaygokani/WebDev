@@ -1,6 +1,12 @@
 const http = require("http");
 const fs = require("fs");
-const args = require("minimist")(process.argv.slice(2));
+const minimist = require("minimist");
+
+let args = minimist(process.argv.slice(2), {
+	default: {
+		port: 3000,
+	},
+});
 
 let homeContent = "";
 let projectContent = "";
@@ -20,7 +26,7 @@ fs.readFile("html/project.html", (err, project) => {
 	projectContent = project;
 });
 
-fs.readFile("html/register.html", (err, register) => {
+fs.readFile("html/form/register.html", (err, register) => {
 	if (err) {
 		throw err;
 	}
