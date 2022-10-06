@@ -10,27 +10,27 @@ let args = minimist(process.argv.slice(2), {
 
 let homeContent = "";
 let projectContent = "";
-let registerContent = "";
+let registrationContent = "";
 
-fs.readFile("html/home.html", (err, home) => {
+fs.readFile("home.html", (err, home) => {
 	if (err) {
 		throw err;
 	}
 	homeContent = home;
 });
 
-fs.readFile("html/project.html", (err, project) => {
+fs.readFile("project.html", (err, project) => {
 	if (err) {
 		throw err;
 	}
 	projectContent = project;
 });
 
-fs.readFile("html/form/register.html", (err, register) => {
+fs.readFile("registration.html", (err, registration) => {
 	if (err) {
 		throw err;
 	}
-	registerContent = register;
+	registrationContent = registration;
 });
 
 http
@@ -42,8 +42,8 @@ http
 				response.write(projectContent);
 				response.end();
 				break;
-			case "/register":
-				response.write(registerContent);
+			case "/registration":
+				response.write(registrationContent);
 				response.end();
 				break;
 			default:
