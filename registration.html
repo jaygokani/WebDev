@@ -1,52 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registration Form - Jay Gokani</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <form class="regis-form">
-      <h1>Registration Form</h1>
-      <div>
-        <label for="name">Name :</label>
-        <input type="text" name="name" id="name" required />
-      </div>
-      <div>
-        <label for="email">Email :</label>
-        <input type="email" name="email" id="email" required />
-      </div>
-      <div>
-        <label for="password">Password :</label>
-        <input type="password" name="pass" id="password" />
-      </div>
-      <div>
-        <label for="dob">Date of birth :</label>
-        <input type="date" name="dob" id="dob" required />
-      </div>
-      <div>
-        <label for="dob">Accept Terms :</label>
-        <input type="checkbox" name="accepted_terms" id="accepted_terms" />
-      </div>
-      <div>
-        <button type="reset">Reset</button>
-        <button id="submitButton" type="submit">Submit</button>
-      </div>
-    </form>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Password</th>
-          <th>Dob</th>
-          <th>Accepted terms?</th>
-        </tr>
-      </thead>
-      <tbody id="table_body"></tbody>
-    </table>
-    <script src="script.js"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Registration Form - Jay Gokani</title>
+		<!-- <link rel="stylesheet" href="style.css" /> -->
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				min-height: 100vh;
+				/* background-image: radial-gradient(at 50% 50% ,#000 0%,#555 ); */
+				/* background-repeat: no-repeat; */
+				background-color: gray;
+			}
+
+			table {
+				width: 70vw;
+				color: #bbb;
+			}
+			th {
+				color: #fff;
+				font-size: large;
+			}
+
+			td {
+				text-align: center;
+			}
+
+			.regis-form {
+				margin: 2vh;
+				width: 300px;
+				background-color: rgb(216, 156, 115);
+				background-image: linear-gradient(
+					45deg,
+					#d7d7d7,
+					#c3c3c3,
+					#cccccc,
+					#c6c6c6,
+					#d7d7d7,
+					#c3c3c3,
+					#cccccc,
+					#c6c6c6,
+					#d7d7d7,
+					#c3c3c3,
+					#cccccc,
+					#c6c6c6,
+					#d7d7d7,
+					#c3c3c3,
+					#cccccc,
+					#c6c6c6
+				);
+
+				border-radius: 10%;
+				display: block;
+				text-align: center;
+				/* box-shadow: -7px 7px 5px rgb(127, 122, 122); */
+				transition: box-shadow 300ms;
+				/* overflow: hidden; */
+				border: 3px solid;
+			}
+
+			.regis-form:hover {
+				box-shadow: 0px 0px 10px #fff;
+			}
+
+			.regis-form div input {
+				font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+					"Lucida Sans", Arial, sans-serif;
+			}
+
+			.regis-form div label {
+				color: black;
+				font-weight: 1000;
+			}
+
+			.regis-form div {
+				padding: 1%;
+				margin: 6%;
+				display: flex;
+				justify-content: space-between;
+			}
+		</style>
+	</head>
+	<body>
+		<form class="regis-form">
+			<h1>Registration Form</h1>
+			<div>
+				<label for="name">Name :</label>
+				<input type="text" name="name" id="name" required />
+			</div>
+			<div>
+				<label for="email">Email :</label>
+				<input type="email" name="email" id="email" required />
+			</div>
+			<div>
+				<label for="password">Password :</label>
+				<input type="password" name="pass" id="password" />
+			</div>
+			<div>
+				<label for="dob">Date of birth :</label>
+				<input type="date" name="dob" id="dob" required />
+			</div>
+			<div>
+				<label for="dob">Accept Terms :</label>
+				<input type="checkbox" name="accepted_terms" id="accepted_terms" />
+			</div>
+			<div>
+				<button type="reset">Reset</button>
+				<button id="submitButton" type="submit">Submit</button>
+			</div>
+		</form>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Password</th>
+					<th>Dob</th>
+					<th>Accepted terms?</th>
+				</tr>
+			</thead>
+			<tbody id="table_body"></tbody>
+		</table>
+		<script src="script.js"></script>
+		<script>
+			document
+				.getElementById("submitButton")
+				.addEventListener("click", onSubmit);
+
+			function initial() {
+				if (localStorage["tableData"]) {
+					table_content = document.getElementById("table_body");
+					table_content.innerHTML = localStorage["tableData"];
+					console.log(table_content);
+				} else {
+					localStorage.setItem("tableData", "");
+				}
+			}
+
+			function validateDob(dob) {
+				//validation
+				const dt = new Date();
+				let ty = dt.getFullYear();
+				let tm = dt.getMonth();
+				let td = dt.getDate();
+
+				let by = Number(dob.slice(0, 4));
+				let bm = Number(dob.slice(5, 7));
+				let bd = Number(dob.slice(8, 11));
+				console.log(dob);
+				console.log(by + " " + bm + bd);
+
+				if (bm < tm) {
+					age = ty - by;
+				} else if (bm == tm) {
+					if (bd <= td) {
+						age = ty - by;
+					} else {
+						age = ty - by - 1;
+					}
+				} else {
+					age = ty - by - 1;
+				}
+
+				if (age >= 18 && age <= 55) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+			function checkDOB(dob) {
+				let age = new Date().getFullYear() - new Date(dob.value).getFullYear();
+				if (age < 18 || age > 55) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+
+			function updateTable(filtered_data) {
+				let table_content = document.getElementById("table_body");
+				table_content.innerHTML += filtered_data;
+				let prev = localStorage["tableData"];
+				localStorage.setItem("tableData", prev + filtered_data);
+			}
+
+			function onSubmit(event) {
+				event.preventDefault();
+				let nam = document.getElementById("name").value.toString();
+				const email = document.getElementById("email").value.toString();
+				let password = document.getElementById("password").value.toString();
+				let dob1 = document.getElementById("dob");
+
+				if (document.getElementById("email").checkValidity()) {
+					if (checkDOB(dob1)) {
+						let dob = dob1.value.toString();
+						let accepted_terms = document
+							.getElementsByName("accepted_terms")[0]
+							.checked.toString();
+						let combined = [nam, email, password, dob, accepted_terms];
+						let filtered_data =
+							"<tr><td>" + combined.join("</td><td>") + "</td></tr>";
+						console.log(filtered_data);
+						updateTable(filtered_data);
+					} else {
+						alert("age should be between 18 and 55");
+					}
+				} else {
+					alert("Not a valid email");
+					//event.preventDefault();
+				}
+			}
+
+			window.initial();
+		</script>
+	</body>
 </html>
